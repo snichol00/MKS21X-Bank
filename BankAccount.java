@@ -3,15 +3,15 @@ public class BankAccount{
   private int accountID;
   private String password;
   /*Sole constructor requires all field's values*/
- public BankAccount( int accountID, double balance, String password){
-   balance = getBalance();
-   accountID = getAccountID();
-   setPassword("CoolPass");
+ public BankAccount(double myBalance,  int myAccountID, String myPassword){
+   balance = myBalance;
+   accountID = myAccountID;
+   password = myPassword;
  }
 
 /*Return a String to be used to display the account data. "ACCOUNT\tBALANCE" */
  public String toString(){
-   return (Integer.toString(accountID) + "/t" + Double.toString(balance));
+   return ("" + accountID + "/t" + balance);
  }
 
 /*standard accessor methods*/
@@ -54,4 +54,19 @@ public class BankAccount{
     return false;
   }
 
+  private boolean authenticate(String password) {
+    if (password.equals(password)) {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean transferTo(BankAccount other, double amount, String password) {
+    if (this.authenticate(password)) {
+      if (this.withdraw(amount)) {
+        other.deposit(amount);
+      }
+    }
+    return false;
+  }
 }
